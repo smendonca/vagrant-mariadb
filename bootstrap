@@ -1,0 +1,33 @@
+#!/bin/bash
+
+export LANGUAGE='en_US.UTF-8'
+export LC_ALL='en_US.UTF-8'
+export LANG='en_US.UTF-8'
+
+sudo locale-gen en_US.UTF-8
+
+sudo ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime
+
+sudo apt-get --assume-yes update
+sudo apt-get --assume-yes upgrade
+
+sudo apt-get --assume-yes install mariadb-server-10.1
+
+cat << 'EOF' > /tmp/local.cnf
+[mysqld]
+max_connections         = 15
+bind-address            = 0.0.0.0
+innodb_buffer_pool_size = 2048M
+key_buffer              = 2048M
+query_cache_size        = 128M
+key_buffer_size         = 128M
+tmp_table_size          = 64M
+max_heap_table_size     = 64M
+table_cache             = 2000
+EOF
+
+sudo mv /tmp/local.cnf /etc/mysql/conf.d/local.cnf
+sudo /etc/init.d/mysql restart
+
+sudo /usr/bin/mysqladmin -u root password 'password'
+mysql -u root -ppassword -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'password' WITH GRANT OPTION; FLUSH PRIVILEGES;"
