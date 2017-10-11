@@ -9,7 +9,8 @@ Vagrant-MariaDB
 - Localtime `Europe/Paris`
 
 ### Usage
-
-  git clone git@github.com:smendonca/vagrant-mariadb.git
-  cd vagrant-mariadb
-  vagrant up
+```bash
+  $ git clone git@github.com:smendonca/vagrant-mariadb.git
+  $ cd vagrant-mariadb
+  $ vagrant up
+```
