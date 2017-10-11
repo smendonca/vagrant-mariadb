@@ -26,7 +26,7 @@ max_heap_table_size     = 64M
 table_cache             = 2000
 EOF
 
-sudo mv /tmp/local.cnf /etc/mysql/conf.d/local.cnf
+sudo mv /tmp/local.cnf /etc/mysql/mariadb.conf.d/90-local-server.cnf
 sudo /etc/init.d/mysql restart
 
 sudo /usr/bin/mysqladmin -u root password 'password'
